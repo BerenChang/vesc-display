@@ -133,8 +133,7 @@ class WorkerThread(Thread):
                     rpm = 0
                 else:
                     rpm = state.esc_a_state.erpm / (Config.motor_magnets / 2)
-                m_s_to_erpm = ((Config.motor_magnets / 2.0) * 60.0 *
-					Config.gear_ratio) / (Config.wheel_diameter * pi)
+                m_s_to_erpm = 60.0 * Config.gear_ratio / (Config.wheel_diameter * pi)
                 state.speed = rpm / m_s_to_erpm * 3.6
 
                 # chart points remove last if more Config.chart_*_points and append new value
