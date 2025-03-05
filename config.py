@@ -28,15 +28,15 @@ class Config:
     write_session_track: int = 0
     session_track_average_sec: int = 5
 
-    motor_magnets: int = 0
-    wheel_diameter: int = 0
-    battery_cells: int = 0
-    battery_mah: int = 0
-    hw_controller_current_limit: int = 135
+    motor_magnets: int = 10
+    wheel_diameter: int = 0.2
+    battery_cells: int = 12
+    battery_mah: int = 48000
+    hw_controller_current_limit: int = 230
     hw_controller_voltage_offset_mv: int = 0
 
     serial_vesc_api: str = "http://127.0.0.1:2002"  # invisible in settings
-    serial_vesc_path: str = "port:///dev/ttyUSB0?speed=115200"
+    serial_vesc_path: str = "port:///dev/ttyACM0?speed=115200"
 
     service_enable_debug: int = 0
     service_rcv_timeout_ms: int = 100
