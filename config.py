@@ -29,7 +29,8 @@ class Config:
     session_track_average_sec: int = 5
 
     motor_magnets: int = 10
-    wheel_diameter: int = 0.2
+    gear_ratio: float = 14.5
+    wheel_diameter: float = 0.2
     battery_cells: int = 12
     battery_mah: int = 48000
     hw_controller_current_limit: int = 230
