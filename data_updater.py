@@ -186,6 +186,9 @@ class WorkerThread(Thread):
 
                 if state.speed > 0:
                     state.wh_km_h = stab(round(state.full_power / state.speed, 1), -99.9, 99.9)
+                
+                impFact = 1.0
+                self.range = Battery.recalc_full_battery_wh / (self.wh_km / impFact)
 
                 if Config.write_logs:
                     self.log.write_state(json.dumps(state.f_to_json()))

@@ -259,16 +259,12 @@ text-align: center;</string>
     </property>
     <property name="plainText">
      <string>ESC_A:
-
-PC: 999A
-
-P:  9999W
-
-BC: 99A
-V:  99.9v
-
+PCur: 999A
+Pwr: 9999W
+BCur:  99A
+Volt:  99V
 L:  100%
-T:  99.9°С</string>
+Temp: 99°С</string>
     </property>
     <property name="overwriteMode">
      <bool>true</bool>
@@ -565,14 +561,10 @@ text-align: center;</string>
     </property>
     <property name="plainText">
      <string>ESC_B:
-
 PC: 999A
-
 P:  9999W
-
 BC: 999A
 V:  99.9v
-
 L:  100%
 T:  99.9°С</string>
     </property>

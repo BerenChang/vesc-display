@@ -14,6 +14,7 @@ class ESCState:
 
     battery_current: int = 0
     voltage: float = 0.0
+    battery_level: float = 0.0
 
     temperature: float = 0.0
     motor_temperature: float = 0.0
@@ -22,6 +23,7 @@ class ESCState:
 
     erpm: float = 0
     tachometer: int = 0
+    range: float = 0.0
 
     def parse_from_json(self, json: dict, controller_a_b: str = "?"):
         self.controller_a_b = controller_a_b
@@ -29,6 +31,7 @@ class ESCState:
 
         self.controller_a_b = str(json["controller_id"])
         self.battery_current = json["avg_input_current"]
+        self.battery_level = json["battery_level"]
         self.voltage = json["voltage"]
         if Config.hw_controller_voltage_offset_mv != 0:
             self.voltage += (Config.hw_controller_voltage_offset_mv / 1000)
@@ -53,15 +56,18 @@ class ESCState:
             self.load_percent = 0
 
     def build_gui_str(self, sw_load_to_motor_temp: bool = False) -> str:
-        motor_temp_or_load = f"MT: {self.motor_temperature}°\n" if sw_load_to_motor_temp else f"L: {self.load_percent}%\n"
+        # motor_temp_or_load = f"MT: {self.motor_temperature}°\n" if sw_load_to_motor_temp else f"L: {self.load_percent}%\n"
         return \
-            f"ESC-{self.controller_a_b.upper()}\n\n" \
-            f"PC: {self.phase_current}A\n\n" \
-            f"P:  {self.power}W\n\n" \
-            f"BC: {self.battery_current}A\n" \
-            f"V:  {round(self.voltage, 1)}v\n\n" + motor_temp_or_load + \
-            f"CT: {self.temperature}°"
-
+            f"ESC-{self.controller_a_b.upper()}\n" \
+            f"PCur: {self.phase_current}A\n" \
+            f"BCur: {self.battery_current}A\n" \
+            f"Batt: {self.battery_level}%\n" \
+            f"MOS_T: {self.temperature}°\n" \
+            f"MOT_T: {self.motor_temperature}°\n" \
+            f"Pwr:  {self.power}W\n" \
+            f"Volt:  {round(self.voltage, 1)}V\n" \
+            f"Range:  {self.range} KM"
+            
     def parse_from_log(self, js: dict):
         for i in js.keys():
             setattr(self, i, js[i])
