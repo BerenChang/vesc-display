@@ -8,6 +8,7 @@ class Battery:
     MAX_CELL_VOLTAGE: float = 4.2
 
     full_battery_wh: int = 0
+    estimated_wh: int = 0
     display_start_voltage: float = 0
     full_tracking_disabled: bool = False
 
@@ -54,8 +55,8 @@ class Battery:
 
             return int(percent_by_voltage)
 
-        estimated_wh = Battery.full_battery_wh - watt_hours
-        battery_percent = int(100 / (Battery.full_battery_wh / estimated_wh))
+        Battery.estimated_wh = Battery.full_battery_wh - watt_hours
+        battery_percent = int(100 / (Battery.full_battery_wh / Battery.estimated_wh))
 
         if Battery.last_percent == -100:
             Battery.last_percent = battery_percent
