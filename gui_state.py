@@ -14,7 +14,7 @@ class ESCState:
 
     battery_current: int = 0
     voltage: float = 0.0
-    battery_level: float = 0.0
+    # battery_level: float = 0.0
 
     temperature: float = 0.0
     motor_temperature: float = 0.0
@@ -31,7 +31,7 @@ class ESCState:
 
         self.controller_a_b = str(json["controller_id"])
         self.battery_current = json["avg_input_current"]
-        self.battery_level = json["battery_level"]
+        # self.battery_level = json["battery_level"]
         self.voltage = json["voltage"]
         if Config.hw_controller_voltage_offset_mv != 0:
             self.voltage += (Config.hw_controller_voltage_offset_mv / 1000)
@@ -61,7 +61,6 @@ class ESCState:
             f"ESC-{self.controller_a_b.upper()}\n" \
             f"PCur: {self.phase_current}A\n" \
             f"BCur: {self.battery_current}A\n" \
-            f"Batt: {self.battery_level}%\n" \
             f"MOS_T: {self.temperature}°\n" \
             f"MOT_T: {self.motor_temperature}°\n" \
             f"Pwr:  {self.power}W\n" \
