@@ -34,6 +34,8 @@ class ESCState:
         self.battery_current = json["avg_input_current"]
         self.battery_level = json["battery_level"]
         self.watt_hours = json["watt_hours"]
+        self.watt_hours_charged = json["watt_hours_charged"]
+        self.tachometer_abs = json["tachometer_abs"]
         self.voltage = json["voltage"]
         if Config.hw_controller_voltage_offset_mv != 0:
             self.voltage += (Config.hw_controller_voltage_offset_mv / 1000)
@@ -89,6 +91,8 @@ class GUIState:
     wh_km: float = 0.0
     wh_km_h: float = 0.0
     watt_hours: float = 0.0
+    watt_hours_charged: float = 0.0
+    tachometer_abs: float = 0.0
 
     nsec = None
     session = Session()

@@ -188,7 +188,8 @@ class WorkerThread(Thread):
                     state.wh_km_h = stab(round(state.full_power / state.speed, 1), -99.9, 99.9)
                 
                 impFact = 1.0
-                self.range = state.watt_hours / (state.wh_km / impFact)
+                wh_km = (state.watt_hours - state.watt_hours_charged) / (state.tachometer_abs / 1000)
+                self.range = state.watt_hours / (wh_km / impFact)
 
                 if Config.write_logs:
                     self.log.write_state(json.dumps(state.f_to_json()))
