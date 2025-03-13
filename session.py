@@ -60,7 +60,8 @@ class Session:
             self.average_speed = round(self.__av_speed_calc_sum / self.__av_speed_calc_count, 2)
             self.maximum_speed = round(max(self.maximum_speed, state.speed), 2)
 
-            battery_current = state.esc_a_state.battery_current + state.esc_b_state.battery_current
+            # battery_current = state.esc_a_state.battery_current + state.esc_b_state.battery_current
+            battery_current = state.esc_a_state.battery_current
             self.__av_battery_current_calc_sum += battery_current
             self.__av_battery_current_calc_count += 1
             self.average_battery_current = round(self.__av_battery_current_calc_sum / self.__av_battery_current_calc_count, 2)
@@ -96,14 +97,17 @@ class Session:
             if self.__dynamic_distance_start == -1:
                 self.__dynamic_distance_start = state.session_distance
 
-        self.maximum_fet_temp = max(self.maximum_fet_temp,
-                                    max(state.esc_a_state.temperature, state.esc_b_state.temperature))
-        self.maximum_motor_temp = max(self.maximum_motor_temp,
-                                    max(state.esc_a_state.motor_temperature, state.esc_b_state.motor_temperature))
+        # self.maximum_fet_temp = max(self.maximum_fet_temp,
+        #                             max(state.esc_a_state.temperature, state.esc_b_state.temperature))
+        self.maximum_fet_temp = max(self.maximum_fet_temp, state.esc_a_state.temperature)
+        # self.maximum_motor_temp = max(self.maximum_motor_temp,
+        #                             max(state.esc_a_state.motor_temperature, state.esc_b_state.motor_temperature))
+        self.maximum_motor_temp = max(self.maximum_motor_temp, state.esc_a_state.motor_temperature)
         self.minimum_power = min(self.minimum_power, state.full_power)
         self.maximum_power = max(self.maximum_power, state.full_power)
 
-        phase_current = state.esc_a_state.phase_current + state.esc_b_state.phase_current
+        # phase_current = state.esc_a_state.phase_current + state.esc_b_state.phase_current
+        phase_current = state.esc_a_state.phase_current
         self.minimum_phase_current = min(self.minimum_phase_current, phase_current)
         self.maximum_phase_current = max(self.maximum_phase_current, phase_current)
 
