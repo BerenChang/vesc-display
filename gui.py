@@ -48,7 +48,7 @@ class GUIApp:
     # date: QLineEdit = None
     # time: QLineEdit = None
 
-    uart_button: QPushButton = None
+    # uart_button: QPushButton = None
 
     data_updater_thread: data_updater.WorkerThread = None
 
@@ -110,9 +110,9 @@ class GUIApp:
         # self.esc_b_element.lower()
         self.esc_a_element.lower()
 
-        self.uart_button = self.ui.uart_button
-        self.uart_button.setStyleSheet("color: rgb(255, 255, 255);\nbackground-color: rgb(255, 0, 255);") # pink
-        self.uart_button.clicked.connect(self.on_click_uart_settings)
+        # self.uart_button = self.ui.uart_button
+        # self.uart_button.setStyleSheet("color: rgb(255, 255, 255);\nbackground-color: rgb(255, 0, 255);") # pink
+        # self.uart_button.clicked.connect(self.on_click_uart_settings)
 
     def show(self):
         self.ui.show()
@@ -171,16 +171,16 @@ class GUIApp:
         # self.date.setText(time.strftime("%d.%m.%y", lt))
         # self.time.setText(time.strftime("%H:%M:%S", lt))
 
-        if state.uart_status != self.last_uart_status:
-            if   state.uart_status == GUIState.UART_STATUS_ERROR:
-                self.uart_button.setStyleSheet("color: rgb(255, 255, 255);\nbackground-color: rgb(255, 0, 0);border: none;") # red
-            elif state.uart_status == GUIState.UART_STATUS_WORKING_SUCCESS:
-                self.uart_button.setStyleSheet("color: rgb(255, 255, 255);\nbackground-color: rgb(0, 110, 0);border: none;") # green
-            elif state.uart_status == GUIState.UART_STATUS_WORKING_ERROR:
-                self.uart_button.setStyleSheet("color: rgb(255, 255, 255);\nbackground-color: rgb(85, 0, 255);border: none;")  # blue
-            elif state.uart_status == GUIState.UART_STATUS_UNKNOWN:
-                self.uart_button.setStyleSheet("color: rgb(255, 255, 255);\nbackground-color: rgb(255, 0, 255);border: none;") # pink
-            self.last_uart_status = state.uart_status
+        # if state.uart_status != self.last_uart_status:
+        #     if   state.uart_status == GUIState.UART_STATUS_ERROR:
+        #         self.uart_button.setStyleSheet("color: rgb(255, 255, 255);\nbackground-color: rgb(255, 0, 0);border: none;") # red
+        #     elif state.uart_status == GUIState.UART_STATUS_WORKING_SUCCESS:
+        #         self.uart_button.setStyleSheet("color: rgb(255, 255, 255);\nbackground-color: rgb(0, 110, 0);border: none;") # green
+        #     elif state.uart_status == GUIState.UART_STATUS_WORKING_ERROR:
+        #         self.uart_button.setStyleSheet("color: rgb(255, 255, 255);\nbackground-color: rgb(85, 0, 255);border: none;")  # blue
+        #     elif state.uart_status == GUIState.UART_STATUS_UNKNOWN:
+        #         self.uart_button.setStyleSheet("color: rgb(255, 255, 255);\nbackground-color: rgb(255, 0, 255);border: none;") # pink
+        #     self.last_uart_status = state.uart_status
 
         if now_time_ms - self.last_time_chart_update > Config.delay_chart_update_ms:
             if Config.chart_points > 0:
