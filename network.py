@@ -71,7 +71,7 @@ class Network:
     def COMM_GET_VALUES_multi(controller_ids: list) -> dict:
         try:
             data = json.dumps({"vesc_ids": controller_ids})
-            response = Network.http.request("POST", f"{Config.serial_vesc_api}/vescs/command/COMM_GET_VALUES_PIDISPLAY",
+            response = Network.http.request("POST", f"{Config.serial_vesc_api}/vescs/command/COMM_GET_VALUES",
                                             headers={'Content-Type': 'application/json'},
                                             body=data, timeout=Network.net_timeout)
             if response.status != 200:
