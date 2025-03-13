@@ -7,7 +7,7 @@ from config import Config
 from nsec_calculation import NSec
 
 class ButtonPos(Enum):
-    RIGHT_PARAM = "right_param"
+    # RIGHT_PARAM = "right_param"
     LEFT_PARAM = "left_param"
     CENTER_PARAM = "center_param"
 
@@ -85,7 +85,7 @@ class ParamIndicatorsChanger:
         if hasattr(self.gui, "center_param"):
             self.gui.center_param.setText(self.get_value_by_indicator_num(state, self.gui.center_param_active_ind.value))
         self.gui.left_param.setText(self.get_value_by_indicator_num(state, self.gui.left_param_active_ind.value))
-        self.gui.right_param.setText(self.get_value_by_indicator_num(state, self.gui.right_param_active_ind.value))
+        # self.gui.right_param.setText(self.get_value_by_indicator_num(state, self.gui.right_param_active_ind.value))
         pass
 
     def get_value_by_indicator_num(self, state, num: int) -> str:
@@ -149,14 +149,15 @@ class ParamIndicatorsChanger:
         from gui import GUIApp as NormalApp
 
         if type(self.gui) == NormalApp:
-            if ParamIndicators[Config.right_param_active_ind].value < 100 and \
-                ParamIndicators[Config.left_param_active_ind].value < 100:
+            # if ParamIndicators[Config.right_param_active_ind].value < 100 and \
+            #     ParamIndicators[Config.left_param_active_ind].value < 100:
+            if ParamIndicators[Config.left_param_active_ind].value < 100:
                 return False
-        else:
-            if ParamIndicators[Config.right_param_active_ind].value < 100 and \
-                ParamIndicators[Config.center_param_active_ind].value < 100 and \
-                ParamIndicators[Config.left_param_active_ind].value < 100:
-                return False
+        # else:
+        #     if ParamIndicators[Config.right_param_active_ind].value < 100 and \
+        #         ParamIndicators[Config.center_param_active_ind].value < 100 and \
+        #         ParamIndicators[Config.left_param_active_ind].value < 100:
+        #         return False
 
         return False
 
@@ -175,11 +176,12 @@ class ParamIndicatorsChanger:
             if indicator == ParamIndicators.NSec and self.gui.center_param_active_ind.value > 99:
                 return True
 
-        if param_position == ButtonPos.RIGHT_PARAM:
-            if self.gui.right_param_active_ind == indicator:
-                return True
+        # if param_position == ButtonPos.RIGHT_PARAM:
+        #     if self.gui.right_param_active_ind == indicator:
+        #         return True
 
-            if indicator == ParamIndicators.NSec and self.gui.right_param_active_ind.value > 99:
+            # if indicator == ParamIndicators.NSec and self.gui.right_param_active_ind.value > 99:
+            if indicator == ParamIndicators.NSec:
                 return True
 
     def show_menu_param_change(self, event: QMouseEvent, param_position: ButtonPos):
@@ -187,7 +189,8 @@ class ParamIndicatorsChanger:
         menu.setStyleSheet('color: rgb(255, 255, 255);font: 22pt "Consolas"; font-weight: bold; border-style: outset; border-width: 2px; border-color: beige;')
 
         actions = []
-        if param_position == ButtonPos.LEFT_PARAM or param_position == ButtonPos.RIGHT_PARAM or param_position == ButtonPos.CENTER_PARAM:
+        # if param_position == ButtonPos.LEFT_PARAM or param_position == ButtonPos.RIGHT_PARAM or param_position == ButtonPos.CENTER_PARAM:
+        if param_position == ButtonPos.LEFT_PARAM or param_position == ButtonPos.CENTER_PARAM:
             for indicator in [i for i in ParamIndicators]:
                 if indicator.value > 99: continue # NSec
                 name: str = indicator.name
@@ -247,9 +250,9 @@ class ParamIndicatorsChanger:
 
 
     def apply_and_save_indicator(self, indicator_name, button_pos):
-        if button_pos == ButtonPos.RIGHT_PARAM:
-            self.gui.right_param_active_ind = ParamIndicators[indicator_name]
-            Config.right_param_active_ind = ParamIndicators[indicator_name].name
+        # if button_pos == ButtonPos.RIGHT_PARAM:
+        #     self.gui.right_param_active_ind = ParamIndicators[indicator_name]
+        #     Config.right_param_active_ind = ParamIndicators[indicator_name].name
         if button_pos == ButtonPos.LEFT_PARAM:
             self.gui.left_param_active_ind = ParamIndicators[indicator_name]
             Config.left_param_active_ind = ParamIndicators[indicator_name].name
