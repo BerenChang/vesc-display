@@ -32,10 +32,10 @@ class ESCState:
 
         self.controller_a_b = str(json["controller_id"])
         self.battery_current = json["avg_input_current"]
-        self.battery_level = json["battery_level"]
+        # self.battery_level = json["battery_level"]
         self.watt_hours = json["watt_hours"]
-        self.watt_hours_charged = json["watt_hours_charged"]
-        self.tachometer_abs = json["tachometer_abs"]
+        # self.watt_hours_charged = json["watt_hours_charged"]
+        # self.tachometer_abs = json["tachometer_abs"]
         self.voltage = json["voltage"]
         if Config.hw_controller_voltage_offset_mv != 0:
             self.voltage += (Config.hw_controller_voltage_offset_mv / 1000)
@@ -47,7 +47,7 @@ class ESCState:
         self.temperature = json["temp_fet_filtered"]
         self.motor_temperature = json["temp_motor_filtered"]
         self.erpm = json["rpm"]
-        self.tachometer = json["tachometer_abs"]
+        # self.tachometer = json["tachometer_abs"]
         if self.erpm < 0:
             self.erpm *= -1
 
@@ -65,12 +65,10 @@ class ESCState:
             f"ESC-{self.controller_a_b.upper()}\n" \
             f"PCur: {self.phase_current}A\n" \
             f"BCur: {self.battery_current}A\n" \
-            f"Batt: {self.battery_level*100}%\n" \
             f"MOS_T: {self.temperature}°\n" \
             f"MOT_T: {self.motor_temperature}°\n" \
             f"Pwr:  {self.power}W\n" \
-            f"Volt:  {round(self.voltage, 1)}V\n" \
-            f"Range:  {self.range} KM"
+            f"Volt:  {round(self.voltage, 1)}V\n"
             
     def parse_from_log(self, js: dict):
         for i in js.keys():
@@ -82,7 +80,7 @@ class GUIState:
     chart_speed: list = []
 
     esc_a_state = ESCState("?")
-    esc_b_state = ESCState("?")
+    # esc_b_state = ESCState("?")
 
     full_power: int = 0
 
@@ -112,12 +110,16 @@ class GUIState:
 
     def __init__(self):
         self.esc_a_state = ESCState("?")
-        self.esc_b_state = ESCState("?")
+        # self.esc_b_state = ESCState("?")
         self.uart_status = GUIState.UART_STATUS_UNKNOWN
 
-    def f_get_bc(self): return self.esc_a_state.battery_current + self.esc_b_state.battery_current
-    def f_get_pc(self): return self.esc_a_state.phase_current + self.esc_b_state.phase_current
-    def f_get_wu(self): return self.esc_a_state.watt_hours_used + self.esc_b_state.watt_hours_used
+    # def f_get_bc(self): return self.esc_a_state.battery_current + self.esc_b_state.battery_current
+    # def f_get_pc(self): return self.esc_a_state.phase_current + self.esc_b_state.phase_current
+    # def f_get_wu(self): return self.esc_a_state.watt_hours_used + self.esc_b_state.watt_hours_used
+
+    def f_get_bc(self): return self.esc_a_state.battery_current
+    def f_get_pc(self): return self.esc_a_state.phase_current
+    def f_get_wu(self): return self.esc_a_state.watt_hours_used
 
     def f_to_json(self) -> dict:
         result = {}
@@ -140,9 +142,9 @@ class GUIState:
             if i == "esc_a_state":
                 self.esc_a_state.parse_from_log(js[i])
                 continue
-            if i == "esc_b_state":
-                self.esc_b_state.parse_from_log(js[i])
-                continue
+            # if i == "esc_b_state":
+            #     self.esc_b_state.parse_from_log(js[i])
+            #     continue
 
             setattr(self, i, js[i])
 

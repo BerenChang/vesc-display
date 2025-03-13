@@ -39,20 +39,20 @@ class GUIApp:
     chartView: QChartView = None
 
     left_param: QLineEdit = None
-    main_power: QLineEdit = None
-    right_param: QLineEdit = None
+    # main_power: QLineEdit = None
+    # right_param: QLineEdit = None
 
     esc_a_element: QTextEdit = None
-    esc_b_element: QPlainTextEdit = None
+    # esc_b_element: QPlainTextEdit = None
 
-    date: QLineEdit = None
-    time: QLineEdit = None
+    # date: QLineEdit = None
+    # time: QLineEdit = None
 
     uart_button: QPushButton = None
 
     data_updater_thread: data_updater.WorkerThread = None
 
-    right_param_active_ind = ParamIndicators.SessionDistance
+    # right_param_active_ind = ParamIndicators.SessionDistance
     left_param_active_ind = ParamIndicators.BatteryPercent
 
     last_time_check_updates_in_sec = 0
@@ -85,29 +85,29 @@ class GUIApp:
         self.chartView.setRenderHint(QPainter.Antialiasing, False)
 
         self.esc_a_element = self.ui.esc_a_desc
-        self.esc_b_element = self.ui.esc_b_desc
+        # self.esc_b_element = self.ui.esc_b_desc
         self.main_speed_lcd = self.ui.main_speed
         self.left_param = self.ui.left_param
-        self.main_power = self.ui.main_power
-        self.right_param = self.ui.right_param
-        self.date = self.ui.date
-        self.time = self.ui.time
+        #  self.main_power = self.ui.main_power
+        # self.right_param = self.ui.right_param
+        # self.date = self.ui.date
+        # self.time = self.ui.time
         self.main_speed_lcd.mousePressEvent = self.on_click_lcd
 
         self.left_param.setAlignment(Qt.AlignCenter)
-        self.main_power.setAlignment(Qt.AlignCenter)
-        self.right_param.setAlignment(Qt.AlignCenter)
-        self.date.setAlignment(Qt.AlignCenter)
-        self.time.setAlignment(Qt.AlignCenter)
+        # self.main_power.setAlignment(Qt.AlignCenter)
+        # self.right_param.setAlignment(Qt.AlignCenter)
+        # self.date.setAlignment(Qt.AlignCenter)
+        # self.time.setAlignment(Qt.AlignCenter)
 
-        self.right_param.mousePressEvent = self.on_click_right_param
+        # self.right_param.mousePressEvent = self.on_click_right_param
         self.left_param.mousePressEvent = self.on_click_left_param
-        self.main_power.mousePressEvent = self.on_click_center_param
+        # self.main_power.mousePressEvent = self.on_click_center_param
 
-        self.right_param_active_ind = ParamIndicators[Config.right_param_active_ind]
+        # self.right_param_active_ind = ParamIndicators[Config.right_param_active_ind]
         self.left_param_active_ind = ParamIndicators[Config.left_param_active_ind]
 
-        self.esc_b_element.lower()
+        # self.esc_b_element.lower()
         self.esc_a_element.lower()
 
         self.uart_button = self.ui.uart_button
@@ -120,9 +120,9 @@ class GUIApp:
     def on_click_uart_settings(self):
         self.service_status.show()
 
-    def on_click_right_param(self, event: QMouseEvent):
-        self.indicators_changer.show_menu_param_change(event, ButtonPos.RIGHT_PARAM)
-        pass
+    # def on_click_right_param(self, event: QMouseEvent):
+    #     self.indicators_changer.show_menu_param_change(event, ButtonPos.RIGHT_PARAM)
+    #     pass
 
     def on_click_left_param(self, event: QMouseEvent):
         self.indicators_changer.show_menu_param_change(event, ButtonPos.LEFT_PARAM)

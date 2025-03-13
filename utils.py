@@ -186,9 +186,10 @@ def get_skin_size_for_display() -> str:
     now_screen_size = f"{monitor.width}x{monitor.height}"
 
     if now_screen_size in all_sizes:
-        UtilsHolder.resolved_resolution = now_screen_size
+        # UtilsHolder.resolved_resolution = now_screen_size
+        UtilsHolder.resolved_resolution = "320x240"
     else:
-        UtilsHolder.resolved_resolution = "640x480" # default # "480x320"
+        UtilsHolder.resolved_resolution = "320x240" # default # "480x320"
         print("WARNING: UNSUPPORTED SCREEN SIZE")
 
     return UtilsHolder.resolved_resolution

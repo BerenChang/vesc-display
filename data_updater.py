@@ -92,19 +92,19 @@ class WorkerThread(Thread):
                     continue
 
                 # if set esc_b_id get info from -1 (local) and remote esc
-                if Config.esc_b_id >= 0:
-                    result = network.Network.COMM_GET_VALUES_multi([-1, Config.esc_b_id])
-                    if result is None:
-                        self.state.uart_status = GUIState.UART_STATUS_WORKING_ERROR
-                        self.callback(state)
-                        continue
+                # if Config.esc_b_id >= 0:
+                #     result = network.Network.COMM_GET_VALUES_multi([-1, Config.esc_b_id])
+                #     if result is None:
+                #         self.state.uart_status = GUIState.UART_STATUS_WORKING_ERROR
+                #         self.callback(state)
+                #         continue
 
-                    if Config.switch_a_b_esc == 0:
-                        state.esc_a_state.parse_from_json(result["-1"], "A")
-                        state.esc_b_state.parse_from_json(result[str(Config.esc_b_id)], "B")
-                    else:
-                        state.esc_a_state.parse_from_json(result[str(Config.esc_b_id)], "A")
-                        state.esc_b_state.parse_from_json(result["-1"], "B")
+                #     if Config.switch_a_b_esc == 0:
+                #         state.esc_a_state.parse_from_json(result["-1"], "A")
+                #         state.esc_b_state.parse_from_json(result[str(Config.esc_b_id)], "B")
+                #     else:
+                #         state.esc_a_state.parse_from_json(result[str(Config.esc_b_id)], "A")
+                #         state.esc_b_state.parse_from_json(result["-1"], "B")
 
                 # if not set esc_b_id get info from -1 (local) only
                 else:
@@ -114,19 +114,19 @@ class WorkerThread(Thread):
                         self.callback(state)
                         continue
                     state.esc_a_state.parse_from_json(result["-1"], "A")
-                    if state.esc_b_state.controller_a_b != "?":
-                        state.esc_b_state = ESCState("?")
+                    # if state.esc_b_state.controller_a_b != "?":
+                    #     state.esc_b_state = ESCState("?")
                 self.state.uart_status = GUIState.UART_STATUS_WORKING_SUCCESS
 
                 # if have info from esc_b
-                if state.esc_b_state.controller_a_b != "?":
-                    voltage = (state.esc_a_state.voltage + state.esc_b_state.voltage) / 2
-                    watt_hours_used = state.esc_a_state.watt_hours_used + state.esc_b_state.watt_hours_used
-                    state.full_power = state.esc_a_state.power + state.esc_b_state.power
-                else:
-                    voltage = state.esc_a_state.voltage
-                    watt_hours_used = state.esc_a_state.watt_hours_used
-                    state.full_power = state.esc_a_state.power
+                # if state.esc_b_state.controller_a_b != "?":
+                #     voltage = (state.esc_a_state.voltage + state.esc_b_state.voltage) / 2
+                #     watt_hours_used = state.esc_a_state.watt_hours_used + state.esc_b_state.watt_hours_used
+                #     state.full_power = state.esc_a_state.power + state.esc_b_state.power
+                # else:
+                voltage = state.esc_a_state.voltage
+                watt_hours_used = state.esc_a_state.watt_hours_used
+                state.full_power = state.esc_a_state.power
 
                 # calculate rpm only if Config.motor_magnets > 0
                 if Config.motor_magnets < 1:
@@ -144,7 +144,8 @@ class WorkerThread(Thread):
                     state.chart_speed.append(state.speed)
 
                     if Config.chart_pcurrent_insteadof_power:
-                        state.chart_power.append(state.esc_a_state.phase_current + state.esc_b_state.phase_current)
+                        # state.chart_power.append(state.esc_a_state.phase_current + state.esc_b_state.phase_current)
+                        state.chart_power.append(state.esc_a_state.phase_current)
                     else:
                         state.chart_power.append(state.full_power)
 
