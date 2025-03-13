@@ -144,12 +144,12 @@ class GUIApp:
             return
 
         self.esc_a_element.setPlainText(state.esc_a_state.build_gui_str(Config.mtemp_insteadof_load))
-        self.esc_b_element.setPlainText(state.esc_b_state.build_gui_str(Config.mtemp_insteadof_load))
+        # self.esc_b_element.setPlainText(state.esc_b_state.build_gui_str(Config.mtemp_insteadof_load))
 
-        power_str = f'{state.esc_a_state.phase_current + state.esc_b_state.phase_current}A / ' \
-                    f'{state.full_power}W / ' \
-                    f'{state.esc_a_state.battery_current + state.esc_b_state.battery_current}A'
-        self.main_power.setText(power_str)
+        # power_str = f'{state.esc_a_state.phase_current + state.esc_b_state.phase_current}A / ' \
+        #             f'{state.full_power}W / ' \
+        #             f'{state.esc_a_state.battery_current + state.esc_b_state.battery_current}A'
+        # self.main_power.setText(power_str)
 
         if Config.speed_as_integer:
             speed_str = str(int(state.speed))
@@ -168,8 +168,8 @@ class GUIApp:
         now_time_ms = int(time.time() * 1000)
 
         lt = time.localtime((state.builded_ts_ms / 1000) if state.builded_ts_ms > 0 else (now_time_ms / 1000))
-        self.date.setText(time.strftime("%d.%m.%y", lt))
-        self.time.setText(time.strftime("%H:%M:%S", lt))
+        # self.date.setText(time.strftime("%d.%m.%y", lt))
+        # self.time.setText(time.strftime("%H:%M:%S", lt))
 
         if state.uart_status != self.last_uart_status:
             if   state.uart_status == GUIState.UART_STATUS_ERROR:
