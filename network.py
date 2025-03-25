@@ -87,6 +87,18 @@ class Network:
             return None
 
     @staticmethod
+    def COMM_SET_THROTTLE(throttle: int) -> dict:
+        try:
+            data = json.dumps({"throttle": throttle})
+            response = Network.http.request("POST", f"{Config.serial_vesc_api}/vescs/command/COMM_SET_THROTTLE",
+                                            headers={'Content-Type': 'application/json'},
+                                            body=data, timeout=Network.net_timeout)
+
+            return None
+        except:
+            return None
+
+    @staticmethod
     def COMM_REBOOT(controller_ids: list) -> bool:
         try:
             data = json.dumps({"vesc_ids": controller_ids})
